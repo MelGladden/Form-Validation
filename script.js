@@ -1,45 +1,34 @@
-body {
-font-family: Arial, sans-serif;
-background-color: #f0f0f0;
-margin: 0;
-padding: 0;
+document.addEventListener("DOMContentLoaded", function () {
+const form = document.getElementById("registration-form");
+const usernameInput = document.getElementById("username");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const confirmPasswordInput = document.getElementById("confirm-password");
+form.addEventListener("submit", function (event) {
+// Initialize an array to store error messages
+const errors = [];
+// Validation for username (minimum length of 3 characters)
+if (usernameInput.value.length < 3) {
+errors.push("Username must be at least 3 characters long.");
 }
-.container {
-max-width: 400px;
-margin: 0 auto;
-background-color: #fff;
-padding: 20px;
-border-radius: 5px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-/* border: 5px solid red; */
+// Validation for email (must be a valid email format)
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(emailInput.value)) {
+errors.push("Please enter a valid email address.");
 }
-h1 {
-text-align: center;
+// Validation for password (minimum length of 6 characters)
+if (passwordInput.value.length < 6) {
+errors.push("Password must be at least 6 characters long.");
 }
-.form-group {
-margin-bottom: 15px;
+// Validation for password match
+if (passwordInput.value !== confirmPasswordInput.value) {
+errors.push("Passwords do not match.");
 }
-label {
-display: block;
-font-weight: bold;
+// If there are errors, prevent form submission and display them
+if (errors.length > 0) {
+event.preventDefault(); // Prevent form submission
+alert(errors.join("\n")); // Display error messages in an alert
 }
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-width: 90%;
-padding: 10px;
-margin: 10px auto;
-margin-bottom: 10px;
-border-radius: 3px;
-}
-button {
-background-color: #007bff;
-color: #fff;
-border: none;
-padding: 10px 20px;
-border-radius: 3px;
-cursor: pointer;
-}
-button:hover {
-background-color: #0056b3;
-}
+});
+});
+
